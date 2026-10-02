@@ -1,0 +1,66 @@
+<!-- Claude AI was used to assist in development of this file and as a learning tool -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Dice API Server</title>
+</head>
+<body>
+	<h1>DND Dice Roller API Server</h1>
+	<p>This server provides RESTful APIs for the Dice Roller client. This page tests each endpoint and shows its raw response.</p>
+
+	<h2>API Tests</h2>
+
+
+	<!-- Test ping -->
+	<p>
+		<button onclick="testEndpoint('/api/ping', 'pingResult')">GET /api/ping</button>
+		Expected: 200, version text<br />
+		<code id="pingResult"></code>
+	</p>
+
+	<!-- Test dice roll -->
+	<p>
+		<button onclick="testEndpoint('/api/roll', 'rollResult')">GET /api/roll</button>
+		Expected: 200, a number from 1 to 20<br />
+		<code id="rollResult"></code>
+	</p>
+
+	<!-- Test intentional CORS failure -->
+	<p>
+		<button onclick="testEndpoint('/api/no-cors', 'noCorsResult')">GET /api/no-cors</button>
+		Expected: 200 here (same origin), blocked when called from the client<br />
+		<code id="noCorsResult"></code>
+	</p>
+
+	<!-- Test error -->
+	<p>
+		<button onclick="testEndpoint('/api/does-not-exist', 'notFoundResult')">GET /api/does-not-exist</button>
+		Expected: 404, custom not-found message<br />
+		<code id="notFoundResult"></code>
+	</p>
+
+	<p>
+		<a href="/test">GET /test</a> (returns an HTML page, so it opens directly)
+	</p>
+
+	<!-- Function to run all the different tests, written by Claude AI and verified/studied by student -->
+	<script>
+		async function testEndpoint(path, outputId) {
+			const output = document.getElementById(outputId)
+			output.textContent = 'Calling ' + path + '...'
+			const start = performance.now()
+
+			try {
+				const response = await fetch(path)
+				const text = await response.text()
+				const ms = Math.round(performance.now() - start)
+				output.textContent = 'Status ' + response.status + ' | ' + ms + ' ms | ' + text
+			} catch (error) {
+				output.textContent = 'Request failed: ' + error.message
+			}
+		}
+	</script>
+</body>
+</html>
