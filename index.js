@@ -31,12 +31,11 @@ app.get('/api/ping', cors(corsOptions), (request, response) => {
 app.get('/api/roll', cors(corsOptions), (request, response) => {
 	console.log('Calling "/api/roll" on the Node.js server.')
 	const value = dice.rollD20()
-
 	
 	console.log('Rolled: ' + value)
 
 	response.type('text/plain')
-	response.send(String(value))
+	response.json({ sides: 20, roll: value })
 });
 
 // Intentionally has no CORS for CORS failure demo
