@@ -12,9 +12,8 @@ const majorVersion = 1
 const minorVersion = 0
 
 // Add sites that can speak to the server
-// NEED TO ADD STATIC SITE URL!
 const corsOptions = {
-	origin: ['http://localhost:5500', 'static site']
+	origin: ['http://localhost:5500', 'https://victorious-desert-08627b010.6.azurestaticapps.net']
 }
 
 // Use Express to publish static HTML, CSS, and JavaScript files that run in the browser. 
